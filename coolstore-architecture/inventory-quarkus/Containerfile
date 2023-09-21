@@ -1,0 +1,21 @@
+FROM docker.io/maven:3.6.3-jdk-11 AS builder
+ENV PROFILE=prod
+
+WORKDIR /app
+
+COPY pom.xml .
+
+COPY src ./src
+
+RUN mvn clean package -Dmaven.test.skip -Dquarkus.profile=$PROFILE
+
+FROM docker.io/openjdk:11.0-jre
+WORKDIR /app
+
+ARG DOCKER_PACKAGING_DIR=/app/target/quarkus-app
+
+COPY --from=builder ${DOCKER_PACKAGING_DIR}/ /app
+
+EXPOSE 8080
+
+CMD java -jar quarkus-run.jar

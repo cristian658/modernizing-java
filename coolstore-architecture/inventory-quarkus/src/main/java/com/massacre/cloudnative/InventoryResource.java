@@ -12,6 +12,7 @@ import jakarta.ws.rs.core.MediaType;
 public class InventoryResource {
 
     @GET
+    @Path("/hello")
     @Produces(MediaType.TEXT_PLAIN)
     public String hello() {
         return "Hello RESTEasy";

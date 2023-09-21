@@ -12,7 +12,7 @@ public class InventoryResourceTest {
     @Test
     public void testHelloEndpoint() {
         given()
-          .when().get("/hello")
+          .when().get("/api/inventory/hello")
           .then()
              .statusCode(200)
              .body(is("Hello RESTEasy"));
